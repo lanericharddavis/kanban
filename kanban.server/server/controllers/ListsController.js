@@ -1,29 +1,53 @@
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
+import { listsService } from '../services/ListsService'
 
 export class ListsController extends BaseController {
   constructor() {
-    super('api/values')
+    super('api/lists')
     this.router
-      .get('', this.getAll)
-      // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
+    // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.create)
+      .get('', this.getAll)
+      .get('/:id', this.findById)
+      .post('', this.createList)
+      .delete('/:id', this.deleteList)
   }
 
   async getAll(req, res, next) {
     try {
-      return res.send(['value1', 'value2'])
+      // req.body.creatorId = req.userInfo.id
+      const data = await listsService.getAll(req.query)
+      res.send(data)
     } catch (error) {
       next(error)
     }
   }
 
-  async create(req, res, next) {
+  async findById(req, res, next) {
+    try {
+      const data = await listsService.findById({ _id: req.params.id })
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createList(req, res, next) {
     try {
       // NOTE NEVER TRUST THE CLIENT TO ADD THE CREATOR ID
       req.body.creatorId = req.userInfo.id
-      res.send(req.body)
+      const data = await listsService.createList(req.body)
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteList(req, res, next) {
+    try {
+      const data = await listsService.deleteList({ _id: req.params.id })
+      return res.send(data)
     } catch (error) {
       next(error)
     }
