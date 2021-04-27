@@ -4,7 +4,7 @@
       <div class="d-flex flex-column align-items-center">
         <img
           alt="logo"
-          src="../assets/img/cw-logo.png"
+          src="//placehold.it/100x100"
           height="45"
         />
       </div>
@@ -28,8 +28,8 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
+          <router-link :to="{ name: 'Boards' }" class="nav-link">
+            Boards
           </router-link>
         </li>
       </ul>
