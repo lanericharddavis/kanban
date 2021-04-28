@@ -17,7 +17,7 @@
                    id="listInput"
                    aria-describedby="listInput"
                    placeholder="Title..."
-                   v-model="newList"
+                   v-model="state.newList.title"
             >
           </div>
           <button type="submit" class="btn btn-primary">
@@ -27,7 +27,6 @@
       </div>
     </div>
     <div class="row">
-      <h1>Lists populated here</h1>
       <List v-for="Lists in state.lists" :key="Lists.id" :list-prop="Lists" />
     </div>
   </div>
@@ -52,7 +51,9 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      newList: {},
+      newList: {
+        boardId: route.params.id
+      },
       boards: computed(() => AppState.activeBoard),
       lists: computed(() => AppState.lists)
     })

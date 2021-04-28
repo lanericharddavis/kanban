@@ -18,11 +18,11 @@ class ListsService {
 
   async createList(newList) {
     try {
-      const res = await api.post('api/lists/', newList)
-      AppState.lists.push(res.data)
+      await api.post('api/lists/', newList)
+      this.getAllListsByBoardId(newList.boardId)
       Notification.toast('List Created', 'success')
     } catch (error) {
-      Notification.toast('Error', error, 'error')
+      Notification.toast('Error', 'warning')
     }
   }
 

@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="col-6">
-        <button class="btn btn-outline-danger m-4" @click="deleteBoard">
+        <button class="btn btn-outline-danger m-4" @click="deleteList">
           Delete
         </button>
       </div>
@@ -17,6 +17,12 @@
         <button class="btn btn-outline-danger m-4" @click="createTask">
           Create Task
         </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        TASKS GO HERE
+        <Tasks v-for="Task in state.tasks" :key="Task.id" :task-prop="Task" />
       </div>
     </div>
   </div>
@@ -45,6 +51,7 @@ export default {
     const state = reactive({
       board: computed(() => AppState.boards),
       list: computed(() => AppState.lists)
+      // task: computed(() => AppState.tasks[listId])
     })
     return {
       state,

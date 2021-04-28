@@ -10,14 +10,23 @@ class TasksService {
     logger.log(AppState.Tasks)
   }
 
-  // async getTask(id) {
+  // async getAllTasksByListId(id) {
   //   try {
-  //     const res = await api.get('api/tasks/' + id)
-  //     AppState.activeTask = res.data
+  //     const res = await api.get(`api/lists/${id}/tasks`)
+  //     AppState.Tasks[listId] = res.data
   //   } catch (error) {
 
   //   }
   // }
+
+  async getTask(id) {
+    try {
+      const res = await api.get('api/tasks/' + id)
+      AppState.activeTask = res.data
+    } catch (error) {
+
+    }
+  }
 
   async createTask(newTask) {
     try {
