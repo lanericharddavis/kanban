@@ -3,12 +3,12 @@ import { BadRequest } from '../utils/Errors'
 
 class ListsService {
   async getAll(query = {}) {
-    const data = await dbContext.Lists.find(query)// .populate('List')
+    const data = await dbContext.Lists.find(query)
     return data
   }
 
-  async findByBoardId(id) {
-    const data = await dbContext.Boards.findOne({ _id: id })
+  async getAllListsByBoardId(id) {
+    const data = await dbContext.Lists.find({ boardId: id }).populate('Board')
     if (!data) {
       throw new BadRequest('Invalid Id')
     }

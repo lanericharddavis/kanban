@@ -1,6 +1,7 @@
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { listsService } from '../services/ListsService'
+import { tasksService } from '../services/TasksService'
 
 export class ListsController extends BaseController {
   constructor() {
@@ -8,7 +9,8 @@ export class ListsController extends BaseController {
     this.router
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:id/lists', this.findByBoardId)
+      .get('', this.getAll)
+      .get('/:id/tasks', this.getAllTasksByListId)
       .get('/:id', this.findById)
       .post('', this.createList)
       .delete('/:id', this.deleteList)
@@ -24,18 +26,18 @@ export class ListsController extends BaseController {
     }
   }
 
-  async findById(req, res, next) {
+  async getAllTasksByListId(req, res, next) {
     try {
-      const data = await listsService.findById({ _id: req.params.id })
+      const data = await tasksService.getAllTasksByListId(req.params.id)
       res.send(data)
     } catch (error) {
       next(error)
     }
   }
 
-  async findByBoardId(req, res, next) {
+  async findById(req, res, next) {
     try {
-      const data = await listsService.findByBoardId({ _id: req.params.id })
+      const data = await listsService.findById({ _id: req.params.id })
       res.send(data)
     } catch (error) {
       next(error)

@@ -7,6 +7,14 @@ class TasksService {
     return data
   }
 
+  async getAllTasksByListId(id) {
+    const data = await dbContext.Tasks.find({ listId: id }).populate('List')
+    if (!data) {
+      throw new BadRequest('Invalid Id')
+    }
+    return data
+  }
+
   async findById(id) {
     const data = await dbContext.Tasks.findOne({ _id: id })
     if (!data) {

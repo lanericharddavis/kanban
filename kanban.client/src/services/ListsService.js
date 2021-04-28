@@ -22,7 +22,7 @@ class ListsService {
   async createList(newList) {
     try {
       const res = await api.post('api/lists/', newList)
-      AppState.Lists.push(res.data)
+      AppState.lists.push(res.data)
       Notification.toast('List Created', 'success')
     } catch (error) {
       Notification.toast('Error', error, 'error')
@@ -32,7 +32,7 @@ class ListsService {
   async deleteList(id) {
     try {
       await api.delete('api/lists/' + id)
-      AppState.Lists = AppState.Lists.filter(list => list.id !== id)
+      AppState.lists = AppState.lists.filter(list => list.id !== id)
     } catch (error) {
       Notification.toast('Error:' + error, 'error')
     }

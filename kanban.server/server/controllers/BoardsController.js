@@ -1,6 +1,7 @@
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { boardsService } from '../services/BoardsService'
+import { listsService } from '../services/ListsService'
 
 export class BoardsController extends BaseController {
   constructor() {
@@ -9,6 +10,7 @@ export class BoardsController extends BaseController {
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
+      .get('/:id/lists', this.getAllListsByBoardId)
       .get('/:id', this.findById)
       .post('', this.createBoard)
       .delete('/:id', this.deleteBoard)
@@ -18,6 +20,15 @@ export class BoardsController extends BaseController {
     try {
       // req.body.creatorId = req.userInfo.id
       const data = await boardsService.getAll(req.query)
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getAllListsByBoardId(req, res, next) {
+    try {
+      const data = await listsService.getAllListsByBoardId(req.params.id)
       res.send(data)
     } catch (error) {
       next(error)
