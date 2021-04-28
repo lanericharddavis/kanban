@@ -10,14 +10,11 @@ class ListsService {
     logger.log(AppState.lists)
   }
 
-  // async getList(id) {
-  //   try {
-  //     const res = await api.get('api/lists/' + id)
-  //     AppState.activeList = res.data
-  //   } catch (error) {
-
-  //   }
-  // }
+  async getAllListsByBoardId(id) {
+    const res = await api.get(`api/boards/${id}/lists`)
+    AppState.lists = res.data
+    logger.log(AppState.lists)
+  }
 
   async createList(newList) {
     try {

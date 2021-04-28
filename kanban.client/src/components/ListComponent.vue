@@ -1,9 +1,9 @@
 <template>
-  <div class="lists card shadow col-4 d-flex flex-direction-column m-2" style="width: 18rem;">
+  <div class="list card shadow col-4 d-flex flex-direction-column m-2" style="width: 18rem;">
     <div class="row">
       <div class="col-6 card-body">
         <p class="card-text">
-          LIST
+          {{ listProp.title }}
         </p>
       </div>
       <div class="col-6">
@@ -34,7 +34,7 @@ import { tasksService } from '../services/TasksService'
 // import Notification from '../utils/Notification'
 
 export default {
-  name: 'Lists',
+  name: 'List',
   props: {
     listProp: {
       type: Object,
@@ -43,7 +43,8 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      board: computed(() => AppState.boards)
+      board: computed(() => AppState.boards),
+      list: computed(() => AppState.lists)
     })
     return {
       state,

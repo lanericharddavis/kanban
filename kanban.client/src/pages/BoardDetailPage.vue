@@ -28,7 +28,7 @@
     </div>
     <div class="row">
       <h1>Lists populated here</h1>
-      <List v-for="list in state.lists" :key="list.id" :list-prop="list" />
+      <List v-for="Lists in state.lists" :key="Lists.id" :list-prop="Lists" />
     </div>
   </div>
 </template>
@@ -53,7 +53,8 @@ export default {
     const route = useRoute()
     const state = reactive({
       newList: {},
-      boards: computed(() => AppState.activeBoard)
+      boards: computed(() => AppState.activeBoard),
+      lists: computed(() => AppState.lists)
     })
 
     onMounted(async() => {
@@ -63,13 +64,14 @@ export default {
         console.error('Can Not getAllBoards')
       }
       try {
-        await listsService.getAllLists()
+        await listsService.getAllListsByBoardId(route.params.id)
       } catch (error) {
-        console.error('connot get all lists')
+        console.error('connot get all lists by BoardId')
       }
     })
     return {
       state,
+      route,
       async createList() {
         try {
           await listsService.createList(state.newList)
