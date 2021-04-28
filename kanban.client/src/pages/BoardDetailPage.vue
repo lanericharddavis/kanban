@@ -3,13 +3,13 @@
     <div class="row">
       <div v-if="state.boards" class="col boards-page">
         <h1>
-          Welcome to the {{ state.boards.title }} Board!
+          Welcome to {{ state.boards.title }}
         </h1>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <form class="form-inline" @submit="createList">
+        <form class="form-inline" @submit.prevent="createList">
           <div class="form-group">
             <label for="listInput">List Title</label>
             <input type="text"
@@ -17,6 +17,7 @@
                    id="listInput"
                    aria-describedby="listInput"
                    placeholder="Title..."
+                   v-model="newList"
             >
           </div>
           <button type="submit" class="btn btn-primary">
@@ -27,7 +28,7 @@
     </div>
     <div class="row">
       <h1>Lists populated here</h1>
-      <!-- <List /> -->
+      <List v-for="list in state.lists" :key="list.id" :list-prop="list" />
     </div>
   </div>
 </template>
@@ -38,6 +39,7 @@ import { boardsService } from '../services/BoardsService'
 import { reactive, onMounted, computed } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
+import { listsService } from '../services/ListsService'
 
 export default {
   name: 'BoardDetailPage',
@@ -50,7 +52,7 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      newBoard: {},
+      newList: {},
       boards: computed(() => AppState.activeBoard)
     })
 
@@ -60,16 +62,21 @@ export default {
       } catch (error) {
         console.error('Can Not getAllBoards')
       }
+      try {
+        await listsService.getAllLists()
+      } catch (error) {
+        console.error('connot get all lists')
+      }
     })
     return {
-      state
-      // async createList() {
-      //   try {
-      //     await boardsService.createList.state.newBoard)
-      //   } catch (error) {
-      //     Notification.toast('not passing on the Page', +error, 'error')
-      //   }
-      // }
+      state,
+      async createList() {
+        try {
+          await listsService.createList(state.newList)
+        } catch (error) {
+          Notification.toast('not passing on the Page', 'warning')
+        }
+      }
     }
   },
   components: {}

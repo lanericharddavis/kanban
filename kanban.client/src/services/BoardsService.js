@@ -25,7 +25,7 @@ class BoardsService {
     try {
       const res = await api.post('api/boards/', newBoard)
       AppState.Boards.push(res.data)
-      Notification.toast('Board Created')
+      Notification.toast('Board Created', 'success')
     } catch (error) {
       Notification.toast('Error', error, 'error')
     }

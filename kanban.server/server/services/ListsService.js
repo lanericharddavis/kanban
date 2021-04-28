@@ -7,6 +7,14 @@ class ListsService {
     return data
   }
 
+  async findByBoardId(id) {
+    const data = await dbContext.Boards.findOne({ _id: id })
+    if (!data) {
+      throw new BadRequest('Invalid Id')
+    }
+    return data
+  }
+
   async findById(id) {
     const data = await dbContext.Lists.findOne({ _id: id })
     if (!data) {

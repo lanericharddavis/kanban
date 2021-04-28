@@ -8,7 +8,7 @@ export class ListsController extends BaseController {
     this.router
     // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
+      .get('/:id/lists', this.findByBoardId)
       .get('/:id', this.findById)
       .post('', this.createList)
       .delete('/:id', this.deleteList)
@@ -27,6 +27,15 @@ export class ListsController extends BaseController {
   async findById(req, res, next) {
     try {
       const data = await listsService.findById({ _id: req.params.id })
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async findByBoardId(req, res, next) {
+    try {
+      const data = await listsService.findByBoardId({ _id: req.params.id })
       res.send(data)
     } catch (error) {
       next(error)
