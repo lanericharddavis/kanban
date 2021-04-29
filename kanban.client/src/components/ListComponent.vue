@@ -1,7 +1,7 @@
 <template>
   <div class="list card shadow col-11 col-md-3 d-flex flex-direction-column m-2" style="width: 18rem;">
-    <div class="row">
-      <div class="col-12 card-body d-flex align-items-center justify-content-between m-3">
+    <div class="row list-header">
+      <div class="col-12 card-body d-flex align-items-center justify-content-between p-0 mx-3">
         <h3 class="card-text">
           <u>{{ listProp.title }}</u>
         </h3>
@@ -94,5 +94,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.list-header{
+  background-color: green;
+  height:8vh;
+}
 </style>

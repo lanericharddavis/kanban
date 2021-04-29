@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="row pt-3">
-      <Boards v-for="board in state.boards" :key="board.id" :board-prop="board" />
+      <Boards class="bg-grey" v-for="board in state.boards" :key="board.id" :board-prop="board" />
     </div>
   </div>
 </template>
@@ -67,5 +67,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.bg-grey{
+  background-color: #3838385e;
+}
 </style>
