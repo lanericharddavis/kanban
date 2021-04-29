@@ -1,5 +1,5 @@
 <template>
-  <div class="list card shadow col-11 col-md-3 d-flex flex-direction-column m-2" style="width: 18rem;">
+  <div class="list card shadow col-11 col-md-4 d-flex flex-direction-column m-2" style="width: 18rem;">
     <div class="row list-header">
       <div class="col-12 card-body d-flex align-items-center justify-content-between p-0 mx-3">
         <h3 class="card-text">
@@ -15,21 +15,19 @@
             <label for="taskInput" class="col-12 col-md-12 m-2"><strong>Create Task</strong></label>
             <input type="text"
                    class="form-control col-12 col-md-12"
-                   id="taskInput"
                    aria-describedby="taskInput"
                    placeholder="Task Name..."
                    v-model="state.newTask.title"
             >
           </div>
-          <button type="submit" class="btn btn-primary col-1 col-md-1">
+          <button type="submit" class="btn btn-primary mt-4">
             <strong>+</strong>
           </button>
         </form>
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        TASKS GO HERE
+      <div class="col-md-12">
         <task-component v-for="Task in state.tasks" :key="Task.id" :task-prop="Task" />
       </div>
     </div>
@@ -71,6 +69,11 @@ export default {
       } catch (error) {
         Notification.toast('connot get all tasks by ListId', 'error')
       }
+      try {
+        await listsService.getAllListsByBoardId(route.params.id)
+      } catch (error) {
+        Notification.toast('connot get all lists by boardId', 'error')
+      }
     })
 
     return {
@@ -87,8 +90,9 @@ export default {
 
       async createTask() {
         try {
-          await tasksService.createTask(props.list.id)
+          await tasksService.createTask(state.newTask)
           Notification.toast('Task Created!', 'success')
+          state.newTask = {}
         } catch (error) {
           Notification.toast('Task not created', 'error')
         }

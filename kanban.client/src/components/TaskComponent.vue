@@ -1,16 +1,13 @@
 <template>
-  <div class="task card shadow col-12 d-flex flex-direction-column m-2" style="width: 18rem;">
-    <div class="row">
-      <div class="col-6 card-body">
+  <div class="task card shadow col-md-11 d-flex flex-direction-column m-2">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-3 card-body">
         <p class="card-text">
-          {{ state.list.title }}
-          {{ taskProp.title }}
+          <u>{{ taskProp.title }}</u>
         </p>
       </div>
-      <div class="col-6">
-        <button class="btn btn-outline-danger m-4" @click="deleteTask">
-          <i class="fas fa-times"></i>
-        </button>
+      <div class="col-2">
+        <i class="fas fa-times text-danger" @click="deleteTask"></i>
       </div>
     </div>
     <div class="row">
@@ -24,7 +21,7 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 // import { boardsService } from '../services/BoardsService'
 import Notification from '../utils/Notification'
@@ -44,14 +41,23 @@ export default {
   setup(props) {
     const state = reactive({
       board: computed(() => AppState.boards),
-      list: computed(() => AppState.lists)
+      list: computed(() => AppState.lists),
+      task: computed(() => AppState.tasks)
+    })
+
+    onMounted(async() => {
+      try {
+        await tasksService.getAllTasksByListId(props.taskProp.id)
+      } catch (error) {
+        Notification.toast('connot get all tasks by ListId', 'error')
+      }
     })
     return {
       state,
 
       async deleteTask() {
         try {
-          await tasksService.deleteTask(props.taskProp.id)
+          await tasksService.deleteTask(props.taskProp)
           Notification.toast('Task Deleted')
         } catch (error) {
           Notification.toast('Error: ' + error, 'error')

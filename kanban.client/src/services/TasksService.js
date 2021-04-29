@@ -32,18 +32,21 @@ class TasksService {
 
   async createTask(newTask) {
     try {
-      const res = await api.post('api/tasks/', newTask)
-      AppState.tasks.push(res.data)
+      console.log(newTask)
+      await api.post('api/tasks', newTask)
+      // AppState.tasks[newTask.listId] = res.data
+      this.getAllTasksByListId(newTask.listId)
       Notification.toast('Task Created', 'success')
     } catch (error) {
       Notification.toast('Error', error, 'error')
     }
   }
 
-  async deleteTask(id) {
+  async deleteTask(taskProp) {
     try {
-      await api.delete('api/tasks/' + id)
-      AppState.tasks = AppState.tasks.filter(task => task.id !== id)
+      await api.delete('api/tasks/' + taskProp.id)
+      AppState.tasks[taskProp.listId] = AppState.tasks[taskProp.listId].filter(task => task.id !== taskProp.id)
+      // this.getAllTasksByListId(taskProp.listId)
     } catch (error) {
       Notification.toast('Error:' + error, 'error')
     }
