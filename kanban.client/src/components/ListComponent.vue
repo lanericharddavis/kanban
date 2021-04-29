@@ -25,29 +25,26 @@
             <strong>+</strong>
           </button>
         </form>
-
-        <!-- <button class="btn btn-outline-danger m-4" @click="createTask">
-          Create Task
-        </button> -->
       </div>
     </div>
     <div class="row">
       <div class="col">
         TASKS GO HERE
-        <Tasks v-for="Task in state.tasks" :key="Task.id" :task-prop="Task" />
+        <task-component v-for="Task in state.tasks" :key="Task.id" :task-prop="Task" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 // import { boardsService } from '../services/BoardsService'
 import Notification from '../utils/Notification'
 import { listsService } from '../services/ListsService'
 import { tasksService } from '../services/TasksService'
+import TaskComponent from './TaskComponent.vue'
 
 export default {
   name: 'List',
@@ -61,12 +58,21 @@ export default {
     const route = useRoute()
     const state = reactive({
       newTask: {
-        listId: route.params.id
+        listId: props.listProp.id
       },
       board: computed(() => AppState.boards),
-      list: computed(() => AppState.lists)
-      // task: computed(() => AppState.tasks[listId])
+      list: computed(() => AppState.lists),
+      tasks: computed(() => AppState.tasks[props.listProp.id])
     })
+
+    onMounted(async() => {
+      try {
+        await tasksService.getAllTasksByListId(props.listProp.id)
+      } catch (error) {
+        Notification.toast('connot get all tasks by ListId', 'error')
+      }
+    })
+
     return {
       state,
       route,
@@ -89,7 +95,7 @@ export default {
       }
     }
   },
-  components: {}
+  components: { TaskComponent }
 }
 </script>
 

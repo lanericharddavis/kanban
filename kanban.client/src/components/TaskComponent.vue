@@ -1,14 +1,15 @@
 <template>
-  <div class="task card shadow col-4 d-flex flex-direction-column m-2" style="width: 18rem;">
+  <div class="task card shadow col-12 d-flex flex-direction-column m-2" style="width: 18rem;">
     <div class="row">
       <div class="col-6 card-body">
         <p class="card-text">
           {{ state.list.title }}
+          {{ taskProp.title }}
         </p>
       </div>
       <div class="col-6">
         <button class="btn btn-outline-danger m-4" @click="deleteTask">
-          <i class="fas fa-cross"></i>
+          <i class="fas fa-times"></i>
         </button>
       </div>
     </div>
@@ -33,7 +34,7 @@ import { tasksService } from '../services/TasksService'
 // import Notification from '../utils/Notification'
 
 export default {
-  name: 'Task',
+  name: 'TaskComponent',
   props: {
     taskProp: {
       type: Object,

@@ -40,12 +40,6 @@ import { listsService } from '../services/ListsService'
 
 export default {
   name: 'BoardDetailPage',
-  props: {
-    boardProp: {
-      type: Object,
-      required: true
-    }
-  },
   setup() {
     const route = useRoute()
     const state = reactive({
@@ -80,7 +74,8 @@ export default {
       }
     }
   },
-  components: {}
+  components: {
+  }
 }
 </script>
 

@@ -2,22 +2,24 @@ import { AppState } from '../AppState'
 import { api } from './AxiosService'
 import Notification from '../utils/Notification'
 import { logger } from '../utils/Logger'
+// import { logger } from '../utils/Logger'
 
 class TasksService {
-  async getAllTasks() {
-    const res = await api.get('api/tasks')
-    AppState.tasks = res.data
-    logger.log(AppState.Tasks)
-  }
-
-  // async getAllTasksByListId(id) {
-  //   try {
-  //     const res = await api.get(`api/lists/${id}/tasks`)
-  //     AppState.Tasks[listId] = res.data
-  //   } catch (error) {
-
-  //   }
+  // async getAllTasks() {
+  //   const res = await api.get('api/tasks')
+  //   AppState.tasks = res.data
+  //   logger.log(AppState.Tasks)
   // }
+
+  async getAllTasksByListId(listId) {
+    try {
+      const res = await api.get(`api/lists/${listId}/tasks`)
+      AppState.tasks[listId] = res.data
+      logger.log(AppState.tasks)
+    } catch (error) {
+      logger.log(error)
+    }
+  }
 
   async getTask(id) {
     try {
