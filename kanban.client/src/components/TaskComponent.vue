@@ -11,10 +11,26 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <button class="btn btn-outline-danger m-4" @click="createComment">
-          +
-        </button>
+      <div>
+        <form class="form-inline" @submit.prevent="createComment">
+          <div class="form-group m-2">
+            <label for="taskInput" class="col-12 col-md-12 m-2"><strong>Create Comment</strong></label>
+            <input type="text"
+                   class="form-control col-12 col-md-12"
+                   aria-describedby="taskInput"
+                   placeholder="Comment Here..."
+                   v-model="state.newComment.body"
+            >
+          </div>
+          <button type="submit" class="btn btn-primary mt-4">
+            <strong>+</strong>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <CommentComponent v-for="Comment in state.comment" :key="Comment.id" :comment-prop="Comment" />
       </div>
     </div>
   </div>
@@ -28,7 +44,7 @@ import Notification from '../utils/Notification'
 // TODO
 // import { listsService } from '../services/ListsService'
 import { tasksService } from '../services/TasksService'
-// import Notification from '../utils/Notification'
+import { commentsService } from '../services/CommentsService'
 
 export default {
   name: 'TaskComponent',
@@ -40,14 +56,19 @@ export default {
   },
   setup(props) {
     const state = reactive({
+      newComment: {
+        taskId: props.taskProp.id
+      },
       board: computed(() => AppState.boards),
       list: computed(() => AppState.lists),
-      task: computed(() => AppState.tasks)
+      task: computed(() => AppState.tasks),
+      comment: computed(() => AppState.comments[props.taskProp.id])
     })
 
     onMounted(async() => {
       try {
         await tasksService.getAllTasksByListId(props.taskProp.id)
+        await commentsService.getAllCommentsByTaskId(props.taskProp.id)
       } catch (error) {
         Notification.toast('connot get all tasks by ListId', 'error')
       }
@@ -62,16 +83,17 @@ export default {
         } catch (error) {
           Notification.toast('Error: ' + error, 'error')
         }
-      }
+      },
 
-      // async createTask() {
-      //   try {
-      //     await TasksService.createTask(props.Task.id)
-      //     Notification.toast('Task Created!')
-      //   } catch (error) {
-      //     Notification.toast('Task not created')
-      //   }
-      // }
+      async createComment() {
+        try {
+          await commentsService.createComment(state.newComment)
+          Notification.toast('Comment Created!', 'success')
+          state.newComment = {}
+        } catch (error) {
+          Notification.toast('Comment not created', 'error')
+        }
+      }
     }
   },
   components: {}

@@ -11,7 +11,7 @@ export class TasksController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.findById)
-      .get('/:id/comments', this.findById)
+      .get('/:id/comments', this.getAllCommentsByTaskId)
       .post('', this.createTask)
       .put('/:id', this.editTask)
       .delete('/:id', this.deleteTask)
