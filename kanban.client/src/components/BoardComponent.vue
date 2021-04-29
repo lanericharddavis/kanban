@@ -1,17 +1,13 @@
 <template>
-  <div class="boards card shadow col-4 d-flex flex-direction-column m-2" style="width: 18rem;">
+  <div class="boards card shadow col-11 col-md-3 d-flex flex-direction-column m-2" style="width: 18rem;">
     <div class="row">
-      <div class="col-6 card-body">
+      <div class="col-12 card-body d-flex justify-content-between">
         <router-link :to="{name: 'BoardDetailPage', params: {id: boardProp.id}}">
-          <p class="card-text">
-            {{ boardProp.title }}
-          </p>
+          <h3 class="card-text">
+            <u>{{ boardProp.title }}</u>
+          </h3>
         </router-link>
-      </div>
-      <div class="col-6">
-        <button class="btn btn-outline-danger m-4" @click="deleteBoard">
-          Delete
-        </button>
+        <i class="fas fa-times text-danger" @click="deleteBoard"></i>
       </div>
     </div>
   </div>

@@ -1,31 +1,29 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col boards-page">
+    <div class="row d-flex justify-content-between">
+      <div class="col-12 col-md-4 boards-page">
         <h1>Welcome to your Board Collection!</h1>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
+      <div class="col-12 col-md-4 mt-3">
         <form class="form-inline" @submit.prevent="createBoard">
           <div class="form-group">
-            <label for="boardInput">Board Title</label>
+            <label for="boardInput" class="mr-2">Create Board</label>
             <input type="text"
-                   class="form-control"
+                   class="form-control mr-2"
                    id="boardInput"
                    aria-describedby="boardInput"
-                   placeholder="Title..."
+                   placeholder="Board Name..."
                    v-model="state.newBoard.title"
                    required
             >
           </div>
           <button type="submit" class="btn btn-primary">
-            Create Board
+            <strong>+</strong>
           </button>
         </form>
       </div>
     </div>
-    <div class="row">
+    <div class="row pt-3">
       <Boards v-for="board in state.boards" :key="board.id" :board-prop="board" />
     </div>
   </div>

@@ -1,27 +1,25 @@
 <template>
   <div class="board-detail-page container-fluid">
-    <div class="row">
-      <div v-if="state.boards" class="col boards-page">
+    <div class="row p-3 justify-content-between">
+      <div v-if="state.boards" class="col-12 col-md-4 boards-page">
         <h1>
           Welcome to {{ state.boards.title }}
         </h1>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
+      <div class="col-12 col-md-4">
         <form class="form-inline" @submit.prevent="createList">
-          <div class="form-group">
-            <label for="listInput">List Title</label>
+          <div class="form-group m-2">
+            <label for="listInput" class="m-2"><strong>Create List</strong></label>
             <input type="text"
                    class="form-control"
                    id="listInput"
                    aria-describedby="listInput"
-                   placeholder="Title..."
+                   placeholder="List Name..."
                    v-model="state.newList.title"
             >
           </div>
           <button type="submit" class="btn btn-primary">
-            Create List
+            <strong>+</strong>
           </button>
         </form>
       </div>
