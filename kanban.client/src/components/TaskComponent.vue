@@ -1,16 +1,16 @@
 <template>
   <div class="task card shadow bg-ltGreen col-md-11 d-flex flex-direction-column my-4 ml-1">
     <div class="row align-items-center justify-content-between">
-      <div class="col-9 card-body">
+      <div class="col-7 col-md-9 card-body">
         <h5 class="card-text">
           {{ taskProp.title }}
         </h5>
       </div>
-      <div class="col-2">
+      <div class="col-1 col-md-2">
         <!-- Button trigger modal -->
         <i class="far fa-comment-dots hvr-raise text-info" type="button" data-toggle="modal" data-target="#commentModal"></i>
       </div>
-      <div class="col-1">
+      <div class="col-1 col-md-1">
         <i class="fas fa-times text-danger hvr-raise" @click="deleteTask"></i>
       </div>
     </div>
