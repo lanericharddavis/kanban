@@ -32,7 +32,6 @@ class TasksService {
 
   async createTask(newTask) {
     try {
-      console.log('createtask from the taskService', newTask)
       await api.post('api/tasks', newTask)
       // AppState.tasks[newTask.listId] = res.data
       this.getAllTasksByListId(newTask.listId)

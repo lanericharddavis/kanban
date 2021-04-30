@@ -48,7 +48,7 @@ export default {
       try {
         await boardsService.getAllBoards()
       } catch (error) {
-        console.error('Can Not getAllBoards')
+        // console.error('Can Not getAllBoards')
       }
     })
     return {

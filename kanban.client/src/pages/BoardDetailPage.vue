@@ -54,12 +54,12 @@ export default {
       try {
         await boardsService.getBoard(route.params.id)
       } catch (error) {
-        console.error('Can Not getAllBoards')
+        // console.error('Can Not getAllBoards')
       }
       try {
         await listsService.getAllListsByBoardId(route.params.id)
       } catch (error) {
-        console.error('connot get all lists by BoardId')
+        // console.error('connot get all lists by BoardId')
       }
     })
     return {

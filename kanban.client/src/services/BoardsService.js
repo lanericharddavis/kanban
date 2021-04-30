@@ -8,7 +8,7 @@ class BoardsService {
       const res = await api.get('api/boards')
       AppState.Boards = res.data
     } catch (error) {
-      console.error('Can Not getAllBoards from BoardsService')
+      // console.error('Can Not getAllBoards from BoardsService')
     }
   }
 

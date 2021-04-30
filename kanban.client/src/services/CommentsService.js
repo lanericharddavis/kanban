@@ -32,7 +32,6 @@ class CommentsService {
 
   async createComment(newComment) {
     try {
-      console.log(newComment)
       await api.post('api/comments', newComment)
       // AppState.comments[newComment.taskId] = res.data
       this.getAllCommentsByTaskId(newComment.taskId)
