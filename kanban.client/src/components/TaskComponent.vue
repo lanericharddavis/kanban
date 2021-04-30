@@ -1,13 +1,17 @@
 <template>
   <div class="task card shadow bg-ltGreen col-md-11 d-flex flex-direction-column m-2">
     <div class="row align-items-center justify-content-between">
-      <div class="col-3 card-body">
-        <p class="card-text">
+      <div class="col-4 card-body">
+        <h5 class="card-text">
           <u>{{ taskProp.title }}</u>
-        </p>
+        </h5>
       </div>
       <div class="col-2">
-        <i class="fas fa-times text-danger" @click="deleteTask"></i>
+        <i class="fas fa-times text-danger hvr-raise" @click="deleteTask"></i>
+      </div>
+      <div class="col-2">
+        <!-- Button trigger modal -->
+        <i class="far fa-comment-dots hvr-raise text-info" type="button" data-toggle="modal" data-target="#commentModal"></i>
       </div>
     </div>
     <div class="row">
@@ -31,6 +35,33 @@
     <div class="row">
       <div class="col-md-12">
         <CommentComponent v-for="Comment in state.comment" :key="Comment.id" :comment-prop="Comment" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Comment On Task
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Post Comment
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -102,6 +133,6 @@ export default {
 
 <style lang="scss" scoped>
 .bg-ltGreen{
-background-color: lightgreen;
+background-color: rgb(85, 138, 85);
 }
 </style>
