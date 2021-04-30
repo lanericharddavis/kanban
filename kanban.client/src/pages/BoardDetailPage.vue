@@ -18,7 +18,7 @@
                    v-model="state.newList.title"
             >
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" title="create list">
             <strong>+</strong>
           </button>
         </form>

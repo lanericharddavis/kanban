@@ -32,13 +32,13 @@ class TasksService {
 
   async createTask(newTask) {
     try {
-      console.log(newTask)
+      console.log('createtask from the taskService', newTask)
       await api.post('api/tasks', newTask)
       // AppState.tasks[newTask.listId] = res.data
       this.getAllTasksByListId(newTask.listId)
-      Notification.toast('Task Created', 'success')
+      Notification.toast('Task Created from listServer', 'success')
     } catch (error) {
-      Notification.toast('Error', error, 'error')
+      Notification.toast('Cannot Create Task', newTask, newTask.listId, 'error')
     }
   }
 

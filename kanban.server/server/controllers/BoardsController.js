@@ -57,6 +57,7 @@ export class BoardsController extends BaseController {
 
   async deleteBoard(req, res, next) {
     try {
+      // Add a second requirement saying that the auth.user.id has to match as well for the delete to go through
       const data = await boardsService.deleteBoard({ _id: req.params.id })
       return res.send(data)
     } catch (error) {

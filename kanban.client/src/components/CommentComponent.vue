@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="col-2">
-        <i class="fas fa-times text-danger hvr-raise" @click="deleteComment"></i>
+        <i v-if="state.user.id==state.comment.creatorId" class="fas fa-times text-danger hvr-raise" @click="deleteComment" title="delete comment"></i>
       </div>
     </div>
   </div>
@@ -30,7 +30,6 @@ import { commentsService } from '../services/CommentsService'
 export default {
   name: 'CommentComponent',
   props: {
-
     commentProp: {
       type: Object,
       required: true
@@ -38,6 +37,7 @@ export default {
   },
   setup(props) {
     const state = reactive({
+      account: computed(() => AppState.account),
       user: computed(() => AppState.user),
       // board: computed(() => AppState.boards),
       // list: computed(() => AppState.lists),

@@ -6,12 +6,12 @@
           {{ taskProp.title }}
         </h5>
       </div>
-      <div class="col-1 col-md-2">
-        <!-- Button trigger modal -->
-        <i class="far fa-comment-dots hvr-raise text-info" type="button" data-toggle="modal" data-target="#commentModal"></i>
-      </div>
+      <!-- <div class="col-1 col-md-2">
+        Button trigger modal
+        <i class="far fa-comment-dots hvr-raise text-info" type="button" data-toggle="modal" data-target="#commentModal" title="create comment"></i>
+      </div> -->
       <div class="col-1 col-md-1">
-        <i class="fas fa-times text-danger hvr-raise" @click="deleteTask"></i>
+        <i v-if="state.user.id==state.task.creatorId" class="fas fa-times text-danger hvr-raise" @click="deleteTask" title="delete task"></i>
       </div>
     </div>
     <div class="row">
@@ -19,10 +19,34 @@
         <CommentComponent v-for="Comment in state.comment" :key="Comment.id" :comment-prop="Comment" />
       </div>
     </div>
+    <div class="row">
+      <div>
+        <form class="form-inline" @submit.prevent="createComment">
+          <div class="form-group m-2">
+            <label for="taskInput" class="col-12 col-md-12 m-2"><strong>Create Comment</strong></label>
+            <input type="text"
+                   class="form-control col-12 col-md-12"
+                   aria-describedby="taskInput"
+                   placeholder="Task Name..."
+                   v-model="state.newComment.body"
+            >
+          </div>
+          <button type="submit" class="btn btn-primary mt-4" title="create Comment">
+            <strong>+</strong>
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModal" aria-hidden="true">
+  <!-- <div
+    class="modal fade"
+    id="commentModal"
+    tabindex="-1"
+    aria-labelledby="commentModal"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -55,7 +79,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -74,6 +98,10 @@ export default {
     taskProp: {
       type: Object,
       required: true
+    },
+    commentProp: {
+      type: Object,
+      required: true
     }
   },
   setup(props) {
@@ -81,6 +109,8 @@ export default {
       newComment: {
         taskId: props.taskProp.id
       },
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       board: computed(() => AppState.boards),
       list: computed(() => AppState.lists),
       task: computed(() => AppState.tasks),
@@ -109,6 +139,7 @@ export default {
 
       async createComment() {
         try {
+          state.newComment.taskId = props.taskProp.id
           await commentsService.createComment(state.newComment)
           Notification.toast('Comment Created!', 'success')
           state.newComment = {}

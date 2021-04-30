@@ -5,7 +5,7 @@
         <h3 class="card-text text-light">
           <u>{{ listProp.title }}</u>
         </h3>
-        <i class="fas fa-times text-danger hvr-raise" @click="deleteList"></i>
+        <i v-if="state.user.id==state.list.creatorId" class="fas fa-times text-danger hvr-raise" @click="deleteList" title="delete list"></i>
       </div>
     </div>
     <div class="row">
@@ -20,7 +20,7 @@
                    v-model="state.newTask.title"
             >
           </div>
-          <button type="submit" class="btn btn-primary mt-4">
+          <button type="submit" class="btn btn-primary mt-4" title="create task">
             <strong>+</strong>
           </button>
         </form>
@@ -58,6 +58,8 @@ export default {
       newTask: {
         listId: props.listProp.id
       },
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       board: computed(() => AppState.boards),
       list: computed(() => AppState.lists),
       tasks: computed(() => AppState.tasks[props.listProp.id])
@@ -90,6 +92,7 @@ export default {
 
       async createTask() {
         try {
+          state.newTask.listId = props.listProp.id
           await tasksService.createTask(state.newTask)
           Notification.toast('Task Created!', 'success')
           state.newTask = {}

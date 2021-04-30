@@ -22,12 +22,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item" title="go to home">
           <router-link :to="{ name: 'Home' }" class="nav-link">
             Home
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" title="go to boards">
           <router-link :to="{ name: 'Boards' }" class="nav-link">
             Boards
           </router-link>
@@ -37,6 +37,7 @@
         <button
           class="btn btn-outline-primary text-uppercase"
           @click="login"
+          title="login"
           v-if="!user.isAuthenticated"
         >
           Login
@@ -59,15 +60,17 @@
             class="dropdown-menu p-0 list-group w-100"
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
+            title="dropdown menu"
           >
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
+              <div class="list-group-item list-group-item-action hoverable" title="go to account">
                 Account
               </div>
             </router-link>
             <div
               class="list-group-item list-group-item-action hoverable"
               @click="logout"
+              title="logout"
             >
               logout
             </div>

@@ -36,4 +36,5 @@ export default {
   bottom: 2px;
   cursor: pointer;
 }
+
 </style>

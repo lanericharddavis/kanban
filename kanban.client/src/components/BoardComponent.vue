@@ -7,7 +7,7 @@
             <u>{{ boardProp.title }}</u>
           </h3>
         </router-link>
-        <i class="fas fa-times text-danger hvr-raise" @click="deleteBoard"></i>
+        <i v-if="state.user.id==state.board.creatorId" class="fas fa-times text-danger hvr-raise" @click="deleteBoard" title="delete board"></i>
       </div>
     </div>
   </div>
@@ -32,6 +32,8 @@ export default {
   },
   setup(props) {
     const state = reactive({
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       board: computed(() => AppState.boards)
     })
     return {

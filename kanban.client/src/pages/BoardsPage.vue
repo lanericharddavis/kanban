@@ -17,7 +17,7 @@
                    required
             >
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" title="create new board">
             <strong>+</strong>
           </button>
         </form>
