@@ -1,5 +1,5 @@
 <template>
-  <div class="task card shadow col-md-11 d-flex flex-direction-column m-2">
+  <div class="task card shadow bg-ltGreen col-md-11 d-flex flex-direction-column m-2">
     <div class="row align-items-center justify-content-between">
       <div class="col-3 card-body">
         <p class="card-text">
@@ -101,5 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.bg-ltGreen{
+background-color: lightgreen;
+}
 </style>
