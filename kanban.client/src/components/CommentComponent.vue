@@ -1,10 +1,10 @@
 <template>
-  <div class="comment-component card shadow col-md-11 d-flex flex-direction-column m-2">
+  <div class="comment-component card shadow col-md-11 d-flex flex-direction-column my-3 ml-2">
     <div class="row align-items-center justify-content-between">
       <div class="col-3">
         <p>{{ state.user.name }}</p>
       </div>
-      <div class="col-3 card-body">
+      <div class="col-7 card-body">
         <p class="card-text">
           <u>{{ commentProp.body }}</u>
         </p>
