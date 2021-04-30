@@ -1,11 +1,11 @@
 <template>
-  <div class="list card shadow col-11 col-md-4 d-flex flex-direction-column m-2" style="width: 18rem;">
+  <div class="list card shadow col-11 col-md-5 d-flex flex-direction-column m-2">
     <div class="row list-header">
       <div class="col-12 card-body d-flex align-items-center justify-content-between p-0 mx-3">
-        <h3 class="card-text">
+        <h3 class="card-text text-light">
           <u>{{ listProp.title }}</u>
         </h3>
-        <i class="fas fa-times text-danger" @click="deleteList"></i>
+        <i class="fas fa-times text-danger hvr-raise" @click="deleteList"></i>
       </div>
     </div>
     <div class="row">
@@ -105,7 +105,11 @@ export default {
 
 <style lang="scss" scoped>
 .list-header{
-  background-color: green;
+  background-color: #003800;
   height:8vh;
+}
+
+.bg-green{
+  background-color: #003800;
 }
 </style>

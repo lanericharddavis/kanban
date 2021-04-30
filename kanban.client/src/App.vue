@@ -6,7 +6,7 @@
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
+    <div class="bg-green text-light text-center p-4">
       Created By Cory and Lane | Apr2021
     </div>
   </footer>
@@ -27,4 +27,13 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
+.bg-green{
+  background-color: #003800;
+}
+
+.hvr-raise:hover{
+  position: relative;
+  bottom: 2px;
+  cursor: pointer;
+}
 </style>

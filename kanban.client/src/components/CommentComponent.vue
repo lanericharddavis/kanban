@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="col-2">
-        <i class="fas fa-times text-danger" @click="deleteComment"></i>
+        <i class="fas fa-times text-danger hvr-raise" @click="deleteComment"></i>
       </div>
     </div>
   </div>

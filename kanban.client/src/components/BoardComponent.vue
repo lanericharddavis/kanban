@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-12 card-body d-flex justify-content-between">
         <router-link :to="{name: 'BoardDetailPage', params: {id: boardProp.id}}">
-          <h3 class="card-text">
+          <h3 class="card-text text-green">
             <u>{{ boardProp.title }}</u>
           </h3>
         </router-link>
-        <i class="fas fa-times text-danger" @click="deleteBoard"></i>
+        <i class="fas fa-times text-danger hvr-raise" @click="deleteBoard"></i>
       </div>
     </div>
   </div>
@@ -60,5 +60,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.text-green{
+   color: #003800;
+}
+.hvr-raise:hover{
+  position: relative;
+  bottom: 2px;
+  cursor: pointer;
+}
 
 </style>

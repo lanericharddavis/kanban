@@ -80,5 +80,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.hover-delete:hover {
+  text-decoration:wavy;
+  font-weight: bolder;
+}
 
 </style>
